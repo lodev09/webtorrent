@@ -36,16 +36,12 @@ const argv = minimist(process.argv.slice(2), {
 })
 
 function build () {
-  console.log('Installing node_modules...')
-  rimraf.sync(NODE_MODULES_PATH)
-  cp.execSync('npm ci', { stdio: 'inherit' })
-
   console.log('Nuking dist/ and build/...')
   rimraf.sync(DIST_PATH)
   rimraf.sync(BUILD_PATH)
 
   console.log('Build: Transpiling to ES5...')
-  cp.execSync('npm run build', { NODE_ENV: 'production', stdio: 'inherit' })
+  cp.execSync('yarn run build', { NODE_ENV: 'production', stdio: 'inherit' })
   console.log('Build: Transpiled to ES5.')
 
   const platform = argv._[0]
@@ -105,7 +101,7 @@ const all = {
   // Replace an already existing output directory.
   overwrite: true,
 
-  // Runs `npm prune --production` which remove the packages specified in
+  // Runs `yarn prune --production` which remove the packages specified in
   // "devDependencies" before starting to package the app.
   prune: true,
 
